@@ -19,6 +19,8 @@ return [
       'api/*',
       'login',
       'logout',
+      'register',
+      'user/password',
       'forgot-password',
       'reset-password',
       'sanctum/csrf-cookie'
