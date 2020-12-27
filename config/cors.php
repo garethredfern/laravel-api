@@ -24,7 +24,7 @@ return [
       'forgot-password',
       'reset-password',
       'sanctum/csrf-cookie',
-      '/email/verification-notification',
+      'email/verification-notification',
     ],
 
     'allowed_methods' => ['*'],
