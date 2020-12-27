@@ -23,7 +23,8 @@ return [
       'user/password',
       'forgot-password',
       'reset-password',
-      'sanctum/csrf-cookie'
+      'sanctum/csrf-cookie',
+      '/email/verification-notification',
     ],
 
     'allowed_methods' => ['*'],
