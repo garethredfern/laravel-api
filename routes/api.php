@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TokenController;
+use App\Http\Controllers\AvatarController;
 use App\Models\User;
 
 /*
@@ -18,14 +19,18 @@ use App\Models\User;
 
 Route::post('/sanctum/token', TokenController::class);
 
-Route::middleware('auth:sanctum')->get('/users/{user}', function (Request $request) {
-  return $request->user();
-});
+Route::middleware(['auth:sanctum'])->group(function () {
+  Route::get('/users/{user}', function (Request $request) {
+    return $request->user();
+  });
 
-Route::middleware('auth:sanctum')->get('/users', function (Request $request) {
-  return User::all();
-});
+  Route::get('/users', function () {
+    return User::all();
+  });
 
-Route::middleware('auth:sanctum')->get('/users/auth', function (Request $request) {
-  return auth()->user();
+  Route::get('/users/auth', function () {
+    return auth()->user();
+  });
+
+  Route::post('/users/auth/avatar', [AvatarController::class, 'store']);
 });
