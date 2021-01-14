@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TokenController;
 use App\Http\Controllers\AvatarController;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 
 /*
@@ -20,16 +21,16 @@ use App\Models\User;
 Route::post('/sanctum/token', TokenController::class);
 
 Route::middleware(['auth:sanctum'])->group(function () {
-  Route::get('/users/{user}', function (Request $request) {
-    return $request->user();
+  Route::get('/users/auth', function () {
+    return new UserResource(Auth::user());
+  });
+
+  Route::get('/users/{id}', function ($id) {
+    return new UserResource(User::findOrFail($id));
   });
 
   Route::get('/users', function () {
-    return User::all();
-  });
-
-  Route::get('/users/auth', function () {
-    return auth()->user();
+    return UserResource::collection(User::paginate());
   });
 
   Route::post('/users/auth/avatar', [AvatarController::class, 'store']);
