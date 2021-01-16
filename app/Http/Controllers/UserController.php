@@ -17,7 +17,7 @@ class UserController extends Controller
     public function index()
     {
         if (Auth::user()->isAdmin()) {
-            return UserResource::collection(User::paginate());
+            return UserResource::collection(User::paginate(10));
         }
         return  response()->json(["message" => "Forbidden"], 403);
     }
