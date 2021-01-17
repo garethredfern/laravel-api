@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => null,
           ]
         );
+        \App\Models\User::factory(20)->create();
     }
 }
