@@ -6,6 +6,7 @@ use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\MessageResource;
+use App\Http\Requests\StoreMessageRequest;
 
 class MessageController extends Controller
 {
@@ -16,7 +17,8 @@ class MessageController extends Controller
      */
     public function index()
     {
-      return MessageResource::collection(Message::paginate(10));
+      $messages = Message::orderByDesc('created_at')->paginate(6);
+      return MessageResource::collection($messages);
     }
 
     /**
@@ -25,11 +27,14 @@ class MessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreMessageRequest $request)
     {
         $user = Auth::user();
-        $message = new Message(['message' => $request->message]);
+        $message = new Message(['body' => $request->body]);
         $user->messages()->save($message);
+
+        $messages = Message::orderByDesc('created_at')->paginate(6);
+        return MessageResource::collection($messages);
     }
 
     /**
