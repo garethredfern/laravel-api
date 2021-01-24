@@ -20,7 +20,6 @@ class MessageResource extends JsonResource
         'body' => $this->body,
         'user' => new UserBasicResource($this->user),
         'createdAt' => $this->created_at->diffForHumans(),
-        'timestamp' => $this->created_at->unix(),
       ];
     }
 }
