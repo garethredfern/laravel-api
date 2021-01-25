@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TokenController;
 use App\Http\Controllers\AvatarController;
+use App\Http\Controllers\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +26,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
   Route::get('/users', [UserController::class, 'index']);
 
   Route::post('/users/auth/avatar', [AvatarController::class, 'store']);
+
+  Route::post('/messages', [MessageController::class, 'store']);
+  Route::get('/messages', [MessageController::class, 'index']);
 });
