@@ -3,19 +3,16 @@
 namespace App\Http\Controllers;
 
 use Exception;
-use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
-use Illuminate\Support\Facades\Storage;
 class AvatarController extends Controller
 {
     public function __invoke(Request $request)
     {
         try {
             $user = $request->user();
-            $filePath = Storage::disk('local')
-                ->putFile('avatars', new File($request->file), 'public');
-            $user->avatar = env('AWS_ENDPOINT').$filePath;
+            $path = $request->file('avatar')->storePublicly('public/avatars');
+            $user->avatar = $path;
             $user->save();
         } catch (Exception $exception) {
             return response()->json(['message' => $exception->getMessage()], 409);
