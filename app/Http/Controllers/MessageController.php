@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\MessageRequest;
 use App\Http\Resources\MessageResource;
-use App\Http\Requests\StoreMessageRequest;
 
 class MessageController extends Controller
 {
@@ -17,8 +17,11 @@ class MessageController extends Controller
      */
     public function index()
     {
-      $messages = Message::orderByDesc('created_at')->paginate(6);
-      return MessageResource::collection($messages);
+        if (Auth::user()->isAdmin()) {
+            $messages = Message::orderByDesc('created_at')->paginate(6);
+            return MessageResource::collection($messages);
+        }
+        return  response()->json(["message" => "Forbidden"], 403);
     }
 
     /**
@@ -27,14 +30,16 @@ class MessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMessageRequest $request)
+    public function store(MessageRequest $request)
     {
-        $user = Auth::user();
-        $message = new Message(['body' => $request->body]);
-        $user->messages()->save($message);
+        if (Auth::user()->isAdmin()) {
+            $message = new Message(['body' => $request->body]);
+            $request->user()->messages()->save($message);
 
-        $messages = Message::orderByDesc('created_at')->paginate(6);
-        return MessageResource::collection($messages);
+            $messages = Message::orderByDesc('created_at')->paginate(6);
+            return MessageResource::collection($messages);
+        }
+        return  response()->json(["message" => "Forbidden"], 403);
     }
 
     /**
