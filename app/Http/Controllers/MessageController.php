@@ -17,7 +17,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->isAdmin()) {
+        if (Auth::user()) {
             $messages = Message::orderByDesc('created_at')->paginate(6);
             return MessageResource::collection($messages);
         }
@@ -32,7 +32,7 @@ class MessageController extends Controller
      */
     public function store(MessageRequest $request)
     {
-        if (Auth::user()->isAdmin()) {
+        if (Auth::user()) {
             $message = new Message(['body' => $request->body]);
             $request->user()->messages()->save($message);
 
