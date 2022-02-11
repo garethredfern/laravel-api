@@ -15,22 +15,11 @@ return [
     |
     */
 
-    'paths' => [
-      'api/*',
-      'login',
-      'logout',
-      'register',
-      'user/password',
-      'forgot-password',
-      'reset-password',
-      'sanctum/csrf-cookie',
-      'user/profile-information',
-      'email/verification-notification',
-    ],
+    'paths' => ['*'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [env('FRONTEND_URL')],
 
     'allowed_origins_patterns' => [],
 
