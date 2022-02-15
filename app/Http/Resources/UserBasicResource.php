@@ -17,6 +17,7 @@ class UserBasicResource extends JsonResource
         return [
             'name' => $this->name,
             'email' => $this->email,
+            'isAdmin' => $this->isAdmin(),
         ];
     }
 }
