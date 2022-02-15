@@ -7,6 +7,7 @@ use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\Auth\TokenController;
 
+use App\Http\Resources\UserBasicResource;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,7 +23,7 @@ Route::post('/sanctum/token/login', TokenController::class);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
-        return $request->user();
+        return new UserBasicResource($request->user());
     });
 
     Route::get('/user/{user}', [UserController::class, 'show']);
