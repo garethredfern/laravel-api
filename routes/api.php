@@ -31,6 +31,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users', [UserController::class, 'index']);
     Route::post('/user/avatar', AvatarController::class);
     Route::put('/user/password', UpdatePasswordController::class);
+    Route::put('/user/{user}', [UserController::class, 'update']);
 
     Route::post('/sanctum/token/logout', function (Request $request) {
         $request->user()->tokens()->delete();
