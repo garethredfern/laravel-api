@@ -12,7 +12,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return App\Http\Resources\UserResource
      */
     public function index()
     {
@@ -36,13 +36,13 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $user
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\User  $user
+     * @return App\Http\Resources\UserResource
      */
     public function show(User $user)
     {
         if (Auth::id() === $user->id || Auth::user()->isAdmin()) {
-          return new UserResource($user);
+            return new UserResource($user);
         }
         return  response()->json(["message" => "Forbidden"], 403);
     }
@@ -51,21 +51,25 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        if (Auth::id() === $user->id || Auth::user()->isAdmin()) {
+            $user->update($request->all());
+            return response()->json(["message" => "User updated"], 200);
+        }
+        return  response()->json(["message" => "Forbidden"], 403);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
         //
     }
