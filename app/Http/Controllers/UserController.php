@@ -41,7 +41,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        if (Auth::user()->isAdmin()) {
+        if (Auth::id() === $user->id || Auth::user()->isAdmin()) {
           return new UserResource($user);
         }
         return  response()->json(["message" => "Forbidden"], 403);
