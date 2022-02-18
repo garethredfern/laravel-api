@@ -55,8 +55,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Message::class);
     }
 
-    public function avatarUrl(): string
+    public function avatarUrl(): ?string
     {
-       return $this->avatar ?? config('app.url') . Storage::url($this->avatar);
+       return $this->avatar ? config('app.url') . Storage::url($this->avatar) : null;
     }
 }
