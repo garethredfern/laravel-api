@@ -32,9 +32,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/user/avatar', AvatarController::class);
     Route::put('/user/password', UpdatePasswordController::class);
 
-    Route::post('/messages', [MessageController::class, 'store']);
-    Route::get('/messages', [MessageController::class, 'index']);
-
     Route::post('/sanctum/token/logout', function (Request $request) {
         $request->user()->tokens()->delete();
     });
