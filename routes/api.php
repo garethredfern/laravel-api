@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\Auth\TokenController;
+use App\Http\Controllers\UpdatePasswordController;
 
 use App\Http\Resources\UserBasicResource;
 /*
@@ -29,6 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/{user}', [UserController::class, 'show']);
     Route::get('/users', [UserController::class, 'index']);
     Route::post('/user/avatar', AvatarController::class);
+    Route::put('/user/password', UpdatePasswordController::class);
 
     Route::post('/messages', [MessageController::class, 'store']);
     Route::get('/messages', [MessageController::class, 'index']);
