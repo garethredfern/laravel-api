@@ -14,7 +14,7 @@ class UpdatePasswordController extends Controller
      * Validate and update the user's password.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return void
+     * @return \Illuminate\Http\Response
      */
     public function __invoke(Request $request)
     {
@@ -36,6 +36,6 @@ class UpdatePasswordController extends Controller
             'password' => Hash::make($request->password),
         ])->save();
 
-        return response()->json(['status' => 'Password updated!']);
+        return response()->json(["message" => "Password updated"], 200);
     }
 }
