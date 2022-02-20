@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/user/{user}', [UserController::class, 'show']);
     Route::get('/users', [UserController::class, 'index']);
-    Route::post('/user/avatar', AvatarController::class);
+    Route::post('/user/{user}/avatar', AvatarController::class);
     Route::put('/user/password', UpdatePasswordController::class);
     Route::put('/user/{user}', [UserController::class, 'update']);
 
