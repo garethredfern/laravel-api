@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 
@@ -54,13 +55,10 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
-        if (Auth::id() === $user->id || Auth::user()->isAdmin()) {
-            $user->update($request->all());
-            return response()->json(["message" => "User updated"], 200);
-        }
-        return  response()->json(["message" => "Forbidden"], 403);
+        $user->update($request->all());
+        return response()->json(["message" => "User updated"], 200);
     }
 
     /**
