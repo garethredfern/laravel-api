@@ -1,0 +1,16 @@
+{
+    "recommendations": [
+        "faelv.composer-companion",
+        "ikappas.composer",
+        "devsense.composer-php-vscode",
+        "hyperledgercomposer.composer-support-client",
+        "kainiklas.composer-intellisense",
+        "pixelfear.composer-links",
+        "devsense.phptools-vscode",
+        "bmewburn.vscode-intelephense-client",
+        "mazycrazy.execoder",
+        "coenraads.bracket-pair-colorizer-2",
+        "2gua.rainbow-brackets",
+        "dzhavat.bracket-pair-toggler"
+    ]
+}

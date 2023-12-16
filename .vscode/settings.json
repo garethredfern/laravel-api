@@ -1,0 +1,15 @@
+{
+    "php.validate.executablePath": "c:\\tools\\php81\\",
+    "composer.executablePath":   "C:\\composer\\composer.bat",
+    "composer.enabled": true,
+    "intelephense.completion.insertUseDeclaration": true,
+    "intelephense.compatibility.correctForArrayAccessArrayAndTraversableArrayUnionTypes": true,
+    "taskExplorer.pathToComposer": "composer",
+    "php-cs-fixer.autoFixByBracket": true,
+    "php.format.autoimport": "auto-import",
+    "php.memoryLimit": "4095M",
+    "php.format.codeStyle": "Allman",
+    "phpformatter.composer": false,
+    "phpformatter.phpPath": "c:\\tools\\php81\\"
+
+}
