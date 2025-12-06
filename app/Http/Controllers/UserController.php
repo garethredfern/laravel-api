@@ -14,12 +14,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        if (Auth::user()->isAdmin()) {
-            return UserResource::collection(User::paginate(10));
+        if (!$request->user()->isAdmin()) {
+            return response()->json(['message' => 'Forbidden'], 403);
         }
-        return  response()->json(["message" => "Forbidden"], 403);
+
+        return UserResource::collection(User::paginate(10));
     }
 
     /**
@@ -39,12 +40,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Request $request, User $user)
     {
-        if (Auth::user()->isAdmin()) {
-          return new UserResource($user);
+        // Users can view their own profile, admins can view anyone
+        if (!$request->user()->isAdmin() && $request->user()->id !== $user->id) {
+            return response()->json(['message' => 'Forbidden'], 403);
         }
-        return  response()->json(["message" => "Forbidden"], 403);
+
+        return new UserResource($user);
     }
 
     /**

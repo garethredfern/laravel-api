@@ -61,7 +61,7 @@ return [
     |
     */
 
-    'home' => env('SPA_URL') . '/dashboard',
+    'home' => env('SPA_URL', 'http://localhost:5173') . '/dashboard',
 
     /*
     |--------------------------------------------------------------------------
@@ -103,7 +103,8 @@ return [
     */
 
     'limiters' => [
-        'login' => null,
+        'login' => 'login',
+        'two-factor' => 'two-factor',
     ],
 
     /*
